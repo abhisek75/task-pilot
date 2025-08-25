@@ -1,4 +1,5 @@
 import {z} from "zod";
+import Link from "next/link";
 import {FcGoogle} from "react-icons/fc";
 import {FaGithub} from "react-icons/fa";
 import {useForm} from "react-hook-form";
@@ -17,15 +18,13 @@ import {
     FormControl,
     FormField,
     FormItem,
-    FormLabel,
     FormMessage,
 }from "@/components/ui/form";
 
-const formSchema = z.object({
+export const formSchema = z.object({
     email: z.string().email(),
-    password: z.string().min(8, "Minimum 8 characters"),
+    password: z.string().min(1, "Required"),
 });
-
 export const SignInCard = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver:zodResolver(formSchema),
@@ -114,6 +113,17 @@ export const SignInCard = () => {
                 <FaGithub className="mr-2 size-5" />
                     Login with Github
                 </Button>
+            </CardContent>
+            <div className="px-7">
+                <DottedSeparator />
+            </div>
+            <CardContent className="p-7 flex items-center justify-center">
+                <p>
+                    Don&apos; have an account?
+                    <Link href ="/sign-up">
+                        <span className="text-blue-700">&nbsp;Sign Up</span>
+                    </Link>
+                </p>
             </CardContent>
         </Card>
     );
